@@ -331,6 +331,7 @@ class LlamaCppVisionGenerate:
                         "default": 0,
                         "min": 0,
                         "max": 0xFFFFFFFFFFFFFFFF,
+                        "control_after_generate": False,
                         "tooltip": "Seed for reproducibility. Use 0 for a random seed.",
                     },
                 ),

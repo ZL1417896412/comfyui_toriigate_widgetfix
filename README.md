@@ -1,9 +1,25 @@
-# comfyui_toriigate
+# comfyui_toriigate_widgetfix
 
 ComfyUI custom nodes for [Minthy/ToriiGate-0.5](https://huggingface.co/Minthy/ToriiGate-0.5), an image captioning model for anime-style and digital art.
 
 Original Model: [Minthy/ToriiGate-0.5](https://huggingface.co/Minthy/ToriiGate-0.5)
 GGUF Models: [DraconicDragon/ToriiGate-0.5-GGUF](https://huggingface.co/DraconicDragon/ToriiGate-0.5-GGUF)
+
+---
+
+## Widget Fix Fork
+
+This fork keeps the original node class names so existing ComfyUI workflows can keep using nodes such as `ToriiGate_LlamaCppVisionGenerate`.
+
+Change from upstream:
+
+- `ToriiGate Llama.cpp Vision Generate` now sets `control_after_generate` to `False` on its `seed` input.
+
+Why:
+
+- The node uses `seed` as an optional llama.cpp text-generation sampling seed.
+- It does not need ComfyUI's automatic seed control widget (`fixed`, `randomize`, `increment`, `decrement`).
+- Disabling that extra control widget keeps the visible widget list aligned with saved workflow `widgets_values` and avoids value shifting after switching workflows.
 
 ---
 
@@ -13,17 +29,17 @@ Clone this repository into your `ComfyUI/custom_nodes` folder:
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/litch230/comfyui_toriigate.git
+git clone https://github.com/ZL1417896412/comfyui_toriigate_widgetfix.git
 ```
 
 If you plan to use the local Transformers node instead of the API, install the requirements:
 
 ```bash
 # Standard Python / venv
-pip install -r ComfyUI/custom_nodes/comfyui_toriigate/requirements.txt
+pip install -r ComfyUI/custom_nodes/comfyui_toriigate_widgetfix/requirements.txt
 
 # ComfyUI Portable (Windows)
-python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\comfyui_toriigate\requirements.txt
+python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\comfyui_toriigate_widgetfix\requirements.txt
 ```
 
 ---
