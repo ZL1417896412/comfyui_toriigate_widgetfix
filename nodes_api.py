@@ -65,7 +65,7 @@ def build_vision_payload(
     image_b64: str,
     temperature: float,
     max_tokens: int,
-    seed: int = 0,
+    seed: int | None = 0,
 ) -> dict:
     """Build an OpenAI-compatible chat-completions payload with an image."""
     messages = []
@@ -91,8 +91,8 @@ def build_vision_payload(
         "temperature": temperature,
         "max_tokens": max_tokens,
     }
-    if seed != 0:
-        payload["seed"] = seed
+    if seed not in (None, 0):
+        payload["seed"] = int(seed)
     return payload
 
 
@@ -381,7 +381,7 @@ class LlamaCppVisionGenerate:
             image_b64=image_b64,
             temperature=actual_temperature,
             max_tokens=int(max_new_tokens),
-            seed=int(seed) if seed != 0 else None,
+            seed=int(seed),
         )
 
         import time

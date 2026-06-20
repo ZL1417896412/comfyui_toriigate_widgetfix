@@ -14,12 +14,14 @@ This fork keeps the original node class names so existing ComfyUI workflows can 
 Change from upstream:
 
 - `ToriiGate Llama.cpp Vision Generate` now sets `control_after_generate` to `False` on its `seed` input.
+- The vision API payload no longer sends `"seed": null` when the node seed is `0`; `seed` is omitted unless a non-zero seed is provided.
 
 Why:
 
 - The node uses `seed` as an optional llama.cpp text-generation sampling seed.
 - It does not need ComfyUI's automatic seed control widget (`fixed`, `randomize`, `increment`, `decrement`).
 - Disabling that extra control widget keeps the visible widget list aligned with saved workflow `widgets_values` and avoids value shifting after switching workflows.
+- Omitting `seed` when it is `0` avoids HTTP 400 errors from llama.cpp builds that reject JSON `null` for numeric fields.
 
 ---
 
